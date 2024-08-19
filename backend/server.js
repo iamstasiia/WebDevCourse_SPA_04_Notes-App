@@ -6,8 +6,7 @@ import {
     mongoDCListener,
     mongoErrorListener,
 } from "./db/connection.db.js";
-// import { NoteModel } from "./models/note.model.js";
-// import { NoteRouter } from "./routes/note.router.js";
+import { UserRouter } from "./routes/user.routes.js";
 config();
 
 const server = express();
@@ -19,14 +18,8 @@ await mongoConnection();
 mongoErrorListener();
 mongoDCListener();
 
-// Model
-// await NoteModel.create({
-//     title: "Test Title",
-//     text: "Test Text",
-// });
-
 // Routes
-// server.use("/notes", NoteRouter);
+server.use("/", UserRouter);
 
 // Error Middleware
 server.use((err, req, res, next) => {
