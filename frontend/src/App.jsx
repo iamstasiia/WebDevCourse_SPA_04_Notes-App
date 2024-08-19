@@ -1,6 +1,7 @@
 import SignUpComponent from './components/SignUp.component.jsx';
 import SignInComponent from './components/SignIn.component.jsx';
 import CreateNoteComponent from './components/CreateNote.component.jsx';
+import NotesComponent from './components/Notes.component.jsx';
 import './App.scss';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <SignUpComponent />
       <SignInComponent />
       <CreateNoteComponent />
+      <NotesComponent />
     </>
   )
 }
