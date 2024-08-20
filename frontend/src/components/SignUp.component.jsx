@@ -28,6 +28,7 @@ function SignUpComponent() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h1>Register</h1>
       <input
         type="text"
         placeholder="Username"

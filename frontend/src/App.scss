@@ -1,11 +1,115 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  min-height: 100vh;
+  background: url(./assets/images/402.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
+.welcome-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  background: rgba(17, 34, 32, 0.5);
+  backdrop-filter: blur(4px);
+  color: #E9E8EE;
+  text-align: center;
 
+  h2 {
+    border-bottom: 1px solid;
+    padding: 0.5rem;
+  }
+
+  button {
+    color: #E9E8EE;
+    border: 1px solid;
+    border-radius: 2rem;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    &:hover {
+      background: #E9E8EE;
+      color: #214749;
+      transform: scaleX(1.1);
+    }
+  }
+}
+
+.auth-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  .auth-content {
+    background: rgba(17, 34, 32, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    color: #E9E8EE;
+    box-shadow: 1rem 1rem 2.5rem rgba($color: #214749, $alpha: 0.25);
+    border-top: 1px solid rgba($color: #E9E8EE, $alpha: 0.25);
+    border-right: 1px solid rgba($color: #E9E8EE, $alpha: 0.25);
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      input {
+        border-bottom: 1px solid #E9E8EE;
+        color: #E9E8EE;
+        min-width: 18rem;
+        padding: 0.5rem;
+        &::placeholder {
+          color: #E9E8EE;
+          opacity: 0.5;
+          font-family: 'Courier New', Courier, monospace;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+
+      button {
+        background: #E9E8EE;
+        padding: 0.75rem;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        &:hover {
+          background: #66967B;
+          color: #E9E8EE;
+        }
+      }
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+
+      button {
+        padding: 0.5rem 0.75rem;
+        color: #E9E8EE;
+        border: 1px solid transparent;
+        margin-left: 0.5rem;
+        transition: all 0.3s ease;
+        &:hover {
+          border: 1px solid;
+          border-radius: 0.25rem;
+          background: rgba($color: #E9E8EE, $alpha: 0.25);
+        }
+      }
+    }
+  }
+}
 
 // @keyframes logo-spin {
 //   from {
