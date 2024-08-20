@@ -24,6 +24,7 @@ export const userLoginController = async (req, res, next) => {
                 code: 200,
                 answer: "User successfully found.",
                 userId: user._id,
+                username: user.username,
             });
         } else {
             res.status(404).json({
