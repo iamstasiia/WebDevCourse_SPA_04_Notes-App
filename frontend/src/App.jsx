@@ -4,6 +4,7 @@ import AuthComponent from "./components/Auth.component.jsx";
 import UserMenuComponent from "./components/UserMenu.component.jsx";
 import NotesComponent from "./components/Notes.component.jsx";
 import CreateNoteComponent from "./components/CreateNote.component.jsx";
+import FooterComponent from "./components/Footer.component.jsx";
 import { UserProvider } from "./contexts/User.context.jsx";
 import "./App.scss";
 
@@ -34,11 +35,18 @@ function App() {
             {step === 0 && <WelcomeComponent onStart={handleStart} />}
             {step === 1 && <AuthComponent onAuthSuccess={handleAuthSuccess} />}
             {step === 2 && (
-              <>
-                <UserMenuComponent onLogout={handleLogout} />
-                <NotesComponent />
-                <CreateNoteComponent />
-              </>
+              <div className="user-page-wrapper">
+                <header>
+                  <UserMenuComponent onLogout={handleLogout} />
+                </header>
+                <main>
+                  <NotesComponent />
+                  <CreateNoteComponent />
+                </main>
+                <footer>
+                  <FooterComponent />
+                </footer>
+              </div>
             )}
         </UserProvider>
     );
