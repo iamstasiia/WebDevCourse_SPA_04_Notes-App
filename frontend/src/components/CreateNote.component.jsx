@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../contexts/User.context';
 
 function CreateNoteComponent() {
+  const { userId } = useContext(UserContext);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const userId = localStorage.getItem('userId');
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
