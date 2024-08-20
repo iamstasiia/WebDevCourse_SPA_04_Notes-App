@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../contexts/User.context.jsx';
 
-function SignInComponent() {
+function SignInComponent({ onAuthSuccess }) {
+  const { setUserId } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,10 +16,14 @@ function SignInComponent() {
             body: JSON.stringify({ email, password }),
           });
         const data = await response.json();
+        console.log(data.userId);
 
-        if (data.userId) {
+        if (data) {
             localStorage.setItem('userId', data.userId);
-            alert('Login successful!');
+            localStorage.setItem('username', data.username);
+            
+            setUserId(data.userId);
+            onAuthSuccess();
         } else {
             alert('Invalid credentials');
         }
