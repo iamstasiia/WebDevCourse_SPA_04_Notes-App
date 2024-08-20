@@ -31,7 +31,6 @@ function App() {
 
     return (
         <UserProvider>
-            <h1>MindPad</h1>
             {step === 0 && <WelcomeComponent onStart={handleStart} />}
             {step === 1 && <AuthComponent onAuthSuccess={handleAuthSuccess} />}
             {step === 2 && (
