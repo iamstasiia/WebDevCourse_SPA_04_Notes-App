@@ -2,7 +2,7 @@ body {
   min-height: 100vh;
   background: url(./assets/images/402.jpg);
   background-size: cover;
-  background-position: center;
+  background-position: center/top;
 }
 
 .welcome-wrapper {
@@ -122,10 +122,16 @@ body {
 header {
   padding: 1rem 2rem;
   border-bottom: 1px solid;
+  margin-bottom: 1rem;
 
   .user-menu {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      text-shadow: -2px -2px 0 #DDD, 2px 2px 0 #DDD;
+    }
 
     button {
       padding: 0.5rem 0.75rem;
@@ -148,41 +154,57 @@ main {
   text-align: center;
 
   .list-of-notes {
+    position: relative;
+
     ul {
       padding: 2rem 1rem;
       list-style: none;
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
 
       li {
         width: fit-content;
-        background: rgba(17, 34, 32, 0.25);
-        background: rgba($color: #66967B, $alpha: 0.25);
-        color: #E9E8EE;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 1rem 1rem 2.5rem rgba($color: #214749, $alpha: 0.25);
-        border-top: 1px solid rgba($color: #E9E8EE, $alpha: 0.25);
-        border-right: 1px solid rgba($color: #E9E8EE, $alpha: 0.25);
-        text-align: left;
         max-width: 20rem;
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        box-shadow: 1rem 1rem 2.5rem rgba($color: #214749, $alpha: 0.25);
+        border-top:  1.5rem solid rgba($color: #DDD, $alpha: 1.0);
+        border-right:  0.5rem solid rgba($color: #DDD, $alpha: 1.0);
+        border-bottom:  0.5rem solid rgba($color: #DDD, $alpha: 1.0);
+        border-left:  0.5rem solid rgba($color: #DDD, $alpha: 1.0);
+        background:  rgba($color: #214749, $alpha: 0.5);
+        color: #E9E8EE;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: auto min-content;
 
-        p {
-          margin-bottom: 2rem;
+        .note-content {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          padding: 2rem 1.5rem;          
         }
 
-        small {
-          display: block;
-          width: 100%;
-          border-top: 1px solid rgba($color: #E9E8EE, $alpha: 0.5);
-          padding: 0.25rem 0.25rem 0;
+        .note-menu {
+          color: #214749;
+          background: #DDD;
+          display: flex;
+          padding: 0.5rem;
+          align-items: center;
+          justify-content: space-between;
+
+          small {
+            text-align: left;
+          }
+
+          button {
+            transition: all 0.3s ease;
+            &:hover {
+              color: #EB4034;
+            }
+          }
         }
       }
     }
@@ -192,6 +214,7 @@ main {
     display: flex;
     gap: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
 
     input, textarea {
       background: #B2B6C1;
@@ -216,9 +239,10 @@ main {
 
 footer {
   color: #E9E8EE;
-  text-shadow: 2px 2px 4px rgba($color: #214749, $alpha: 1.0);
-  padding: 1rem 2rem;
+  text-shadow: 1px 1px 0 rgba($color: #214749, $alpha: 1.0), 0 0 20px rgba($color: #214749, $alpha: 1.0);
+  padding: 1rem;
   text-align: center;
+  font-weight: bold;
 }
 
 // @keyframes logo-spin {

@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User.context.jsx";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function NotesComponent() {
     const { userId } = useContext(UserContext);
@@ -24,11 +26,14 @@ function NotesComponent() {
             <ul>
                 {notes.map((note) => (
                     <li key={note._id}>
-                        <div>
+                        <div className="note-content">
                             <h3>{note.title}</h3>
                             <p>{note.content}</p>
                         </div>
-                        <small>created {note.createdAt.slice(0, 10)}</small>
+                        <div className="note-menu">
+                            <small>created {note.createdAt.slice(0, 10)}</small>
+                            <button><FontAwesomeIcon icon={faTrashCan} /></button>
+                        </div>
                     </li>
                 ))}
             </ul>
