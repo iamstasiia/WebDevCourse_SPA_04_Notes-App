@@ -19,11 +19,17 @@ function NotesComponent() {
     }, [userId, notes]);
 
     return (
-        <div style={{ padding: "50px" }}>
-            <h2>Your notes</h2>
+        <div className="list-of-notes">
+            <h1>Your MindPad*</h1>
             <ul>
                 {notes.map((note) => (
-                    <li key={note._id}>{note.content}</li>
+                    <li key={note._id}>
+                        <div>
+                            <h3>{note.title}</h3>
+                            <p>{note.content}</p>
+                        </div>
+                        <small>created {note.createdAt.slice(0, 10)}</small>
+                    </li>
                 ))}
             </ul>
         </div>

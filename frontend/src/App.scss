@@ -111,6 +111,116 @@ body {
   }
 }
 
+.user-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content auto min-content;
+}
+
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid;
+
+  .user-menu {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+      &:hover {
+        border: 1px solid;
+        border-radius: 0.25rem;
+        background: rgba($color: #214749, $alpha: 0.25);
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto min-content;
+  text-align: center;
+
+  .list-of-notes {
+    ul {
+      padding: 2rem 1rem;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      li {
+        width: fit-content;
+        background: rgba(17, 34, 32, 0.25);
+        background: rgba($color: #66967B, $alpha: 0.25);
+        color: #E9E8EE;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 1rem 1rem 2.5rem rgba($color: #214749, $alpha: 0.25);
+        border-top: 1px solid rgba($color: #E9E8EE, $alpha: 0.25);
+        border-right: 1px solid rgba($color: #E9E8EE, $alpha: 0.25);
+        text-align: left;
+        max-width: 20rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto min-content;
+
+        p {
+          margin-bottom: 2rem;
+        }
+
+        small {
+          display: block;
+          width: 100%;
+          border-top: 1px solid rgba($color: #E9E8EE, $alpha: 0.5);
+          padding: 0.25rem 0.25rem 0;
+        }
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    input, textarea {
+      background: #B2B6C1;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    button {
+      background: #B2B6C1;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      &:hover {
+        background: #66967B;
+        color: #E9E8EE;
+      }
+    }
+  }
+}
+
+footer {
+  color: #E9E8EE;
+  text-shadow: 2px 2px 4px rgba($color: #214749, $alpha: 1.0);
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
 // @keyframes logo-spin {
 //   from {
 //     transform: rotate(0deg);

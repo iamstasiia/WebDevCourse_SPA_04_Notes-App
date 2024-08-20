@@ -13,7 +13,7 @@ const UserMenuComponent = ({ onLogout }) => {
   };
 
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div className='user-menu'>
         <h2>Hello, {username}</h2>
       <button onClick={handleLogout}>Log out</button>
     </div>
