@@ -35,6 +35,12 @@ function NotesComponent() {
         }
     };
 
+    const formatDate = (dateString) => {
+        // const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-UK', options);
+    };
+
     return (
         <div className="list-of-notes">
             <h1>Your MindPad*</h1>
@@ -46,7 +52,7 @@ function NotesComponent() {
                             <p>{note.content}</p>
                         </div>
                         <div className="note-menu">
-                            <small>created {note.createdAt.slice(0, 10)}</small>
+                            <small>created {formatDate(note.createdAt)}</small>
                             <button onClick={() => handleDelete(note._id)}><FontAwesomeIcon icon={faTrashCan} /></button>
                         </div>
                     </li>
