@@ -157,11 +157,11 @@ main {
     position: relative;
 
     ul {
-      padding: 2rem 1rem;
+      padding: 2rem;
       list-style: none;
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
 
       li {
@@ -191,9 +191,10 @@ main {
           color: #214749;
           background: #DDD;
           display: flex;
-          padding: 0.5rem;
+          gap: 1.5rem;
           align-items: center;
           justify-content: space-between;
+          padding: 0.5rem;
 
           small {
             text-align: left;

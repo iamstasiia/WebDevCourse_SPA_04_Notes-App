@@ -4,8 +4,8 @@ export const noteCreationController = async (req, res, next) => {
     try {
         await NoteModel.create(req.body);
 
-        res.status(200).json({
-            code: 200,
+        res.status(201).json({
+            code: 201,
             answer: "The note was created successfully!",
         });
     } catch (error) {
@@ -21,6 +21,20 @@ export const notePrintController = async (req, res, next) => {
         res.status(200).json({
             code: 200,
             answer: notes,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const noteDeleteController = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        await NoteModel.findByIdAndDelete(id);
+
+        res.status(200).json({
+            code: 200,
+            answer: "Note deleted successfully!",
         });
     } catch (error) {
         next(error);

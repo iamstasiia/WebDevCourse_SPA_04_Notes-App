@@ -20,6 +20,21 @@ function NotesComponent() {
         }
     }, [userId, notes]);
 
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:3000/notes/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                setNotes(notes.filter(note => note._id !== id))
+            } else {
+                console.error('Failed to delete note');
+            }
+        } catch (error) {
+            console.error('Error deleting note:', error);
+        }
+    };
+
     return (
         <div className="list-of-notes">
             <h1>Your MindPad*</h1>
@@ -32,7 +47,7 @@ function NotesComponent() {
                         </div>
                         <div className="note-menu">
                             <small>created {note.createdAt.slice(0, 10)}</small>
-                            <button><FontAwesomeIcon icon={faTrashCan} /></button>
+                            <button onClick={() => handleDelete(note._id)}><FontAwesomeIcon icon={faTrashCan} /></button>
                         </div>
                     </li>
                 ))}
