@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User.context.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function NotesComponent() {
     const { userId } = useContext(UserContext);
@@ -33,11 +34,12 @@ function NotesComponent() {
 
     const handleDeletePermanently = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/notes/${id}`, {
+            const response = await fetch(`http://localhost:3000/notes/${noteToDelete}`, {
                 method: 'DELETE',
-            });
+            });    
+                
             if (response.ok) {
-                setNotes(notes.filter(note => note._id !== noteToDelete));
+                setNotes(notes.filter(note => note._id !== noteToDelete));                
             } else {
                 console.error('Failed to delete note');
             }
@@ -79,10 +81,10 @@ function NotesComponent() {
             {isModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <h2>Move to Trash or Delete Permanently?</h2>
-                        <button onClick={handleMoveToTrash}>Move to Trash</button>
-                        <button onClick={handleDeletePermanently}>Delete Permanently</button>
-                        <button onClick={handleCloseModal}>Cancel</button>
+                        <h2>Move to Trash?</h2>
+                        <button onClick={handleMoveToTrash}>Yes</button>
+                        <button onClick={handleDeletePermanently}>No, delete permanently</button>
+                        <button className="xmark-btn" onClick={handleCloseModal}><FontAwesomeIcon icon={faXmark} /></button>
                     </div>
                 </div>
             )}
