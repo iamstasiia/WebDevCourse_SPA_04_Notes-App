@@ -113,7 +113,7 @@ body {
 
 .user-page-wrapper {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content auto min-content;
@@ -152,6 +152,8 @@ main {
   grid-template-columns: 1fr;
   grid-template-rows: auto min-content;
   text-align: center;
+  overflow-y: scroll;
+  position: relative;
 
   .list-of-notes {
     position: relative;
@@ -216,6 +218,9 @@ main {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    position: sticky;
+    bottom: 0;
+    left: 12.5%;
 
     input, textarea {
       background: #B2B6C1;
