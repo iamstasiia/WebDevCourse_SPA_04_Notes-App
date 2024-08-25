@@ -147,6 +147,7 @@ header {
   }
 }
 
+// MAIN
 main {
   display: grid;
   grid-template-columns: 1fr;
@@ -154,6 +155,18 @@ main {
   text-align: center;
   overflow-y: scroll;
   position: relative;
+  &::-webkit-scrollbar {
+    width: 4px;
+    // height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: linear-gradient(rgba(17, 34, 32, 0.5), rgba(233, 232, 238, 0.5));
+    border-radius: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #E9E8EE, #214749);
+    border-radius: 0.5rem;
+  }
 
   .list-of-notes {
     position: relative;
@@ -203,8 +216,10 @@ main {
           }
 
           button {
+            opacity: 0.6;
             transition: all 0.3s ease;
             &:hover {
+              opacity: 1;
               color: #EB4034;
             }
           }
@@ -250,7 +265,7 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Затемнення фону */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,29 +273,56 @@ main {
 }
 .modal-content {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
   text-align: center;
+  position: relative;
+
+  button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+    &:nth-of-type(1) {
+      border-bottom: 1px solid;
+    }
+    &:hover {
+      background-color: #B2B6C1;
+      font-weight: bold;
+      color: white;
+    }
+  }
+  .xmark-btn {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    border: 1px solid;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    &:hover {
+      background-color: #B2B6C1;
+      border: 1px solid #B2B6C1;
+      color: white;
+    }
+  }
 }
 .modal-content h2 {
-  margin-bottom: 20px;
-}
-.modal-content button {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.modal-content button:hover {
-  background-color: #ddd;
+  margin-bottom: 1rem;
 }
 
 // FOOTER
 footer {
   color: #E9E8EE;
   text-shadow: 1px 1px 0 rgba($color: #214749, $alpha: 1.0), 0 0 20px rgba($color: #214749, $alpha: 1.0);
-  padding: 1rem;
+  padding: 1rem 1rem 0.5rem;
   text-align: center;
   font-weight: bold;
 }
