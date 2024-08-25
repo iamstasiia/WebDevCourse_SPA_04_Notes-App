@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../contexts/User.context.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const UserMenuComponent = ({ onLogout }) => {
   const { setUserId } = useContext(UserContext);
@@ -15,7 +17,10 @@ const UserMenuComponent = ({ onLogout }) => {
   return (
     <div className='user-menu'>
         <h2>Hello, {username}</h2>
-      <button onClick={handleLogout}>Log out</button>
+        <button className="tooltip" onClick={handleLogout}>
+          <FontAwesomeIcon icon={faArrowRightFromBracket} />
+          <span className="tooltiptext">Log out</span>
+        </button>
     </div>
   );
 };
