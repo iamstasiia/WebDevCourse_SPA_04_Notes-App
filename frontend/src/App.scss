@@ -134,13 +134,14 @@ header {
     }
 
     button {
+      font-size: 1.25rem;
       padding: 0.5rem 0.75rem;
-      border: 1px solid transparent;
       transition: all 0.3s ease;
+      color: rgba($color: #112220, $alpha: 0.75);
       &:hover {
-        border: 1px solid;
+        color: #E9E8EE;
         border-radius: 0.25rem;
-        background: rgba($color: #214749, $alpha: 0.25);
+        background: rgba($color: #214749, $alpha: 0.5);
         font-weight: bold;
       }
     }
@@ -215,12 +216,17 @@ main {
             text-align: left;
           }
 
-          button {
-            opacity: 0.6;
-            transition: all 0.3s ease;
-            &:hover {
-              opacity: 1;
-              color: #EB4034;
+          .btns {
+            display: flex;
+            gap: 0.75rem;
+
+            button {
+              opacity: 0.6;
+              transition: all 0.3s ease;
+              &:hover {
+                opacity: 1;
+                color: #EB4034;
+              }
             }
           }
         }
@@ -258,7 +264,7 @@ main {
   }
 }
 
-// MODAL
+// DELETE
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -317,6 +323,35 @@ main {
 .modal-content h2 {
   margin-bottom: 1rem;
 }
+
+// EDIT
+.edit-form {
+  margin: 1.5rem 1rem;
+  padding: 1.5rem;
+  background: #E9E8EE;
+  border-radius: 0.5rem;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-form button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+}
+
+.edit-form button:hover {
+  background-color: #ddd;
+}
+
 
 // FOOTER
 footer {

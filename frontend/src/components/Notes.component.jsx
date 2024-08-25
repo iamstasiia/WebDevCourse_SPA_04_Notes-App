@@ -1,14 +1,17 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/User.context.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 function NotesComponent() {
     const { userId } = useContext(UserContext);
     const [notes, setNotes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [noteToDelete, setNoteToDelete] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [noteToEdit, setNoteToEdit] = useState(null);
+    const [editTitle, setEditTitle] = useState("");
+    const [editContent, setEditContent] = useState("");
 
     useEffect(() => {
         if (userId) {
@@ -73,10 +76,63 @@ function NotesComponent() {
         return new Date(dateString).toLocaleDateString('en-UK', options);
     };
 
+    const handleEditClick = (note) => {
+        setIsEditMode(true);
+        setNoteToEdit(note._id);
+        setEditTitle(note.title);
+        setEditContent(note.content);
+    };
+
+    const handleSaveEdit = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/notes/${noteToEdit}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title: editTitle, content: editContent }),
+            });
+            if (response.ok) {
+                const updatedNote = await response.json();
+                setNotes(notes.map(note => note._id === noteToEdit ? updatedNote.note : note));
+            } else {
+                console.error("Failed to update note");
+            }
+        } catch (error) {
+            console.error("Error updating note:", error);
+        } finally {
+            setIsEditMode(false);
+            setNoteToEdit(null);
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setIsEditMode(false);
+        setNoteToEdit(null);
+    };
+
     return (
         <div className="list-of-notes">
             <h1>Your MindPad*</h1>
-            <ul>
+            {isEditMode ? (
+                <div className="edit-form">
+                    <label htmlFor="edit-title">Title</label>
+                    <input
+                        type="text"
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        id="edit-title"
+                    />
+                    <label htmlFor="edit-content">Content</label>
+                    <textarea
+                        value={editContent}
+                        onChange={(e) => setEditContent(e.target.value)}
+                        id="edit-content"
+                    />
+                    <button onClick={handleSaveEdit}>Save</button>
+                    <button onClick={handleCancelEdit}>Cancel</button>
+            </div>
+            ) : (<ul>
                 {notes.map((note) => (
                     <li key={note._id}>
                         <div className="note-content">
@@ -84,12 +140,19 @@ function NotesComponent() {
                             <p>{note.content}</p>
                         </div>
                         <div className="note-menu">
-                            <small>created {formatDate(note.createdAt)}</small>
-                            <button onClick={() => handleDeleteClick(note._id)}><FontAwesomeIcon icon={faTrashCan} /></button>
+                            <small>{note.updatedAt
+                                        ? `edited ${formatDate(note.updatedAt)}`
+                                        : `created ${formatDate(note.createdAt)}`}</small>
+                            <div className="btns">
+                                <button onClick={() => handleEditClick(note)}>
+                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                </button>
+                                <button onClick={() => handleDeleteClick(note._id)}><FontAwesomeIcon icon={faTrashCan} /></button>
+                            </div>
                         </div>
                     </li>
                 ))}
-            </ul>
+            </ul>)}
 
             {isModalOpen && (
                 <div className="modal-overlay">

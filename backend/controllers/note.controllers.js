@@ -65,25 +65,30 @@ export const noteMoveToTrashController = async (req, res, next) => {
     }
 };
 
-// export const userLoginController = async (req, res, next) => {
-//     const { email, password } = req.body;
+export const noteEditController = async (req, res, next) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
 
-//     try {
-//         const user = await UserModel.findOne({ email, password });
+    try {
+        const note = await NoteModel.findByIdAndUpdate(
+            id,
+            { title, content, updatedAt: new Date() },
+            { new: true },
+        );
 
-//         if (user) {
-//             res.status(200).json({
-//                 code: 200,
-//                 answer: "User successfully found.",
-//                 userId: user._id,
-//             });
-//         } else {
-//             res.status(404).json({
-//                 code: 404,
-//                 answer: "User not found.",
-//             });
-//         }
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+        if (note) {
+            res.status(200).json({
+                code: 200,
+                answer: "Note updated successfully!",
+                note,
+            });
+        } else {
+            res.status(404).json({
+                code: 404,
+                answer: "Note not found.",
+            });
+        }
+    } catch (error) {
+        next(error);
+    }
+};
