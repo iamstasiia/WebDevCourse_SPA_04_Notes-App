@@ -28,8 +28,21 @@ function NotesComponent() {
         setIsModalOpen(true);
     };
 
-    const handleMoveToTrash = () => {
-        setIsModalOpen(false);
+    const handleMoveToTrash = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/notes/${noteToDelete}/moveToTrash`, {
+                method: 'PATCH',
+            });
+            if (response.ok) {
+                setNotes(notes.map(note => note._id === noteToDelete ? { ...note, isInTrash: true } : note));
+            } else {
+                console.error("Failed to move note to trash");
+            }
+        } catch (error) {
+            console.error("Error moving note to trash:", error);
+        } finally {
+            setIsModalOpen(false);
+        }
     };
 
     const handleDeletePermanently = async () => {

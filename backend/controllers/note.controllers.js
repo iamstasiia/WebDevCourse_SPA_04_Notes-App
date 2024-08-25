@@ -16,7 +16,7 @@ export const noteCreationController = async (req, res, next) => {
 export const notePrintController = async (req, res, next) => {
     const { userId } = req.params;
     try {
-        const notes = await NoteModel.find({ userId });
+        const notes = await NoteModel.find({ userId, isInTrash: false });
 
         res.status(200).json({
             code: 200,
@@ -36,6 +36,30 @@ export const noteDeleteController = async (req, res, next) => {
             code: 200,
             answer: "Note deleted successfully!",
         });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const noteMoveToTrashController = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const note = await NoteModel.findById(id);
+        if (note) {
+            note.isInTrash = true;
+            note.movedToTrashAt = new Date();
+            await note.save();
+
+            res.status(200).json({
+                code: 200,
+                answer: "Note moved to Trash successfully!",
+            });
+        } else {
+            res.status(404).json({
+                code: 404,
+                answer: "Note not found.",
+            });
+        }
     } catch (error) {
         next(error);
     }

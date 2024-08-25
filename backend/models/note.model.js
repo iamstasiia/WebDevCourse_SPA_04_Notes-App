@@ -14,6 +14,13 @@ const noteSchema = new Schema({
     updatedAt: {
         type: Date,
     },
+    isInTrash: {
+        type: Boolean,
+        default: false,
+    },
+    movedToTrashAt: {
+        type: Date,
+    },
 });
 
 export const NoteModel = model("Note", noteSchema, "notes");
