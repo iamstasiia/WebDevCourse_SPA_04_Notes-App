@@ -132,7 +132,10 @@ function NotesComponent() {
                     <button onClick={handleSaveEdit}>Save</button>
                     <button onClick={handleCancelEdit}>Cancel</button>
             </div>
-            ) : (<ul>
+            ) : ( notes.length === 0 ? (
+            <p>Create your first note</p>
+            ) : (
+            <ul>
                 {notes.map((note) => (
                     <li key={note._id}>
                         <div className="note-content">
@@ -152,7 +155,8 @@ function NotesComponent() {
                         </div>
                     </li>
                 ))}
-            </ul>)}
+            </ul>
+            ))}
 
             {isModalOpen && (
                 <div className="modal-overlay">
