@@ -76,6 +76,12 @@ function NotesComponent() {
         return new Date(dateString).toLocaleDateString('en-UK', options);
     };
 
+    const formatContent = (content) => {
+        return content.split('\n').map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+        ));
+    };
+
     const handleEditClick = (note) => {
         setIsEditMode(true);
         setNoteToEdit(note._id);
@@ -140,7 +146,7 @@ function NotesComponent() {
                     <li key={note._id}>
                         <div className="note-content">
                             {note.title && (<h3>{note.title}</h3>)}
-                            <p>{note.content}</p>
+                            {formatContent(note.content)}
                         </div>
                         <div className="note-menu">
                             <small>
