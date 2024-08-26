@@ -52,10 +52,10 @@ function NotesComponent() {
         try {
             const response = await fetch(`http://localhost:3000/notes/${noteToDelete}`, {
                 method: 'DELETE',
-            });    
-                
+            });
+
             if (response.ok) {
-                setNotes(notes.filter(note => note._id !== noteToDelete));                
+                setNotes(notes.filter(note => note._id !== noteToDelete));
             } else {
                 console.error('Failed to delete note');
             }
@@ -139,13 +139,13 @@ function NotesComponent() {
                 {notes.map((note) => (
                     <li key={note._id}>
                         <div className="note-content">
-                            <h3>{note.title}</h3>
+                            {note.title && (<h3>{note.title}</h3>)}
                             <p>{note.content}</p>
                         </div>
                         <div className="note-menu">
-                            <small>{note.updatedAt
-                                        ? `edited ${formatDate(note.updatedAt)}`
-                                        : `created ${formatDate(note.createdAt)}`}</small>
+                            <small>
+                                {note.updatedAt ? `edited ${formatDate(note.updatedAt)}` : `created ${formatDate(note.createdAt)}`}
+                            </small>
                             <div className="btns">
                                 <button onClick={() => handleEditClick(note)}>
                                     <FontAwesomeIcon icon={faPenToSquare} />
@@ -168,7 +168,7 @@ function NotesComponent() {
                     </div>
                 </div>
             )}
-            
+
         </div>
     );
 }
