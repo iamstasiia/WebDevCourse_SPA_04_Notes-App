@@ -15,18 +15,17 @@ function SignInComponent({ onAuthSuccess }) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
             });
-            const data = await response.json();
-            console.log(data.userId);
-
-            if (data) {
+            
+            if (response.ok) {
+                const data = await response.json();
                 localStorage.setItem("userId", data.userId);
                 localStorage.setItem("username", data.username);
-
                 setUserId(data.userId);
                 onAuthSuccess();
             } else {
                 alert("Invalid credentials");
             }
+            
         } catch (error) {
             console.log(error.message);
         }
