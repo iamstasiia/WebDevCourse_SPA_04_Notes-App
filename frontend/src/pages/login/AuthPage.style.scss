@@ -1,0 +1,78 @@
+.auth-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .auth-content {
+        background: $back-dark;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        padding: 3rem 2rem;
+        border-radius: 1rem;
+        color: $light-text;
+        box-shadow: 1rem 1rem 2.5rem $shadow-dark;
+        border-top: 1px solid $shadow-light;
+        border-right: 1px solid $shadow-light;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            input {
+                border-bottom: 1px solid $light-text;
+                color: $light-text;
+                min-width: 18rem;
+                padding: 0.5rem;
+                &::placeholder {
+                    color: $light-text;
+                    opacity: 0.5;
+                    font-family: 'Courier New', Courier, monospace;
+                }
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                background: $light-text;
+                padding: 0.75rem;
+                font-weight: bold;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+                &:hover {
+                  background: $accent-color-2;
+                  color: $light-text;
+                }
+            }
+
+            small {
+                display: block;
+                text-align: left;
+                color: $danger-color;
+                font-weight: bold;
+            }
+        }
+
+        p {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+      
+            a {
+              padding: 0.5rem 0.75rem;
+              color: $light-text;
+              border: 1px solid transparent;
+              margin-left: 0.5rem;
+              transition: all 0.3s ease;
+              &:hover {
+                border: 1px solid;
+                border-radius: 0.25rem;
+                background: $shadow-light;
+              }
+            }
+        }
+    }
+}
