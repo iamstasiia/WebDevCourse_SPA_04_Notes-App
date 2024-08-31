@@ -1,0 +1,34 @@
+.user-page {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto min-content;
+
+    // USER MENU
+    header {
+        padding: 1rem 2rem;
+        border-bottom: 1px solid $dark-text;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+            text-shadow: -2px -2px 0 $light-text, 2px 2px 0 $light-text;
+        }
+
+        button {
+            font-size: 1.25rem;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.3s ease;
+            color: rgba($color: $dark-text, $alpha: 0.75);
+            &:hover {
+              color: $light-text;
+              border-radius: 0.25rem;
+              background: $back-darker;
+              font-weight: bold;
+            }
+        }
+    }
+}
