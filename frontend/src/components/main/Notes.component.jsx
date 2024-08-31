@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../contexts/User.context.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from "../../contexts/Auth.context.jsx";
 
 function NotesComponent() {
-    const { userId } = useContext(UserContext);
+    const { userId } = useContext(AuthContext);
     const [notes, setNotes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [noteToDelete, setNoteToDelete] = useState(null);
@@ -180,3 +180,4 @@ function NotesComponent() {
 }
 
 export default NotesComponent;
+
