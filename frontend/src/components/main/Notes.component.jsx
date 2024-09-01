@@ -1,7 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faTrashCan,
+    faXmark,
+    faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/Auth.context.jsx";
+import CreateNoteComponent from "./CreateNote.component.jsx";
 
 function NotesComponent() {
     const { userId } = useContext(AuthContext);
@@ -24,7 +29,7 @@ function NotesComponent() {
         } else {
             console.error("User ID not found");
         }
-    }, [userId, notes]);
+    }, [notes]);
 
     const handleDeleteClick = (id) => {
         setNoteToDelete(id);
@@ -33,11 +38,20 @@ function NotesComponent() {
 
     const handleMoveToTrash = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/notes/${noteToDelete}/moveToTrash`, {
-                method: 'PATCH',
-            });
+            const response = await fetch(
+                `http://localhost:3000/notes/${noteToDelete}/moveToTrash`,
+                {
+                    method: "PATCH",
+                },
+            );
             if (response.ok) {
-                setNotes(notes.map(note => note._id === noteToDelete ? { ...note, isInTrash: true } : note));
+                setNotes(
+                    notes.map((note) =>
+                        note._id === noteToDelete
+                            ? { ...note, isInTrash: true }
+                            : note,
+                    ),
+                );
             } else {
                 console.error("Failed to move note to trash");
             }
@@ -50,17 +64,20 @@ function NotesComponent() {
 
     const handleDeletePermanently = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/notes/${noteToDelete}`, {
-                method: 'DELETE',
-            });
+            const response = await fetch(
+                `http://localhost:3000/notes/${noteToDelete}`,
+                {
+                    method: "DELETE",
+                },
+            );
 
             if (response.ok) {
-                setNotes(notes.filter(note => note._id !== noteToDelete));
+                setNotes(notes.filter((note) => note._id !== noteToDelete));
             } else {
-                console.error('Failed to delete note');
+                console.error("Failed to delete note");
             }
         } catch (error) {
-            console.error('Error deleting note:', error);
+            console.error("Error deleting note:", error);
         } finally {
             setIsModalOpen(false);
         }
@@ -72,14 +89,14 @@ function NotesComponent() {
 
     const formatDate = (dateString) => {
         // const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-UK', options);
+        const options = { year: "numeric", month: "numeric", day: "numeric" };
+        return new Date(dateString).toLocaleDateString("en-UK", options);
     };
 
     const formatContent = (content) => {
-        return content.split('\n').map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-        ));
+        return content
+            .split("\n")
+            .map((paragraph, index) => <p key={index}>{paragraph}</p>);
     };
 
     const handleEditClick = (note) => {
@@ -91,16 +108,26 @@ function NotesComponent() {
 
     const handleSaveEdit = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/notes/${noteToEdit}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await fetch(
+                `http://localhost:3000/notes/${noteToEdit}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        title: editTitle,
+                        content: editContent,
+                    }),
                 },
-                body: JSON.stringify({ title: editTitle, content: editContent }),
-            });
+            );
             if (response.ok) {
                 const updatedNote = await response.json();
-                setNotes(notes.map(note => note._id === noteToEdit ? updatedNote.note : note));
+                setNotes(
+                    notes.map((note) =>
+                        note._id === noteToEdit ? updatedNote.note : note,
+                    ),
+                );
             } else {
                 console.error("Failed to update note");
             }
@@ -137,47 +164,75 @@ function NotesComponent() {
                     />
                     <button onClick={handleSaveEdit}>Save</button>
                     <button onClick={handleCancelEdit}>Cancel</button>
-            </div>
-            ) : ( notes.length === 0 ? (
-            <p>Create your first note</p>
+                </div>
+            ) : notes.length === 0 ? (
+                <p>Create your first note</p>
             ) : (
-            <ul>
-                {notes.map((note) => (
-                    <li key={note._id}>
-                        <div className="note-content">
-                            {note.title && (<h3>{note.title}</h3>)}
-                            {formatContent(note.content)}
-                        </div>
-                        <div className="note-menu">
-                            <small>
-                                {note.updatedAt ? `edited ${formatDate(note.updatedAt)}` : `created ${formatDate(note.createdAt)}`}
-                            </small>
-                            <div className="btns">
-                                <button onClick={() => handleEditClick(note)}>
-                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                </button>
-                                <button onClick={() => handleDeleteClick(note._id)}><FontAwesomeIcon icon={faTrashCan} /></button>
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            ))}
+                <>
+                    <ul>
+                        {notes.map((note) => (
+                            <li key={note._id}>
+                                <div className="note-content">
+                                    {note.title && <h3>{note.title}</h3>}
+                                    {formatContent(note.content)}
+                                </div>
+                                <div className="note-menu">
+                                    <small>
+                                        {note.updatedAt
+                                            ? `edited ${formatDate(
+                                                  note.updatedAt,
+                                              )}`
+                                            : `created ${formatDate(
+                                                  note.createdAt,
+                                              )}`}
+                                    </small>
+                                    <div className="btns">
+                                        <button
+                                            onClick={() =>
+                                                handleEditClick(note)
+                                            }
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faPenToSquare}
+                                            />
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleDeleteClick(note._id)
+                                            }
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faTrashCan}
+                                            />
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                    <CreateNoteComponent />
+                </>
+            )}
 
             {isModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h2>Move to Trash?</h2>
                         <button onClick={handleMoveToTrash}>Yes</button>
-                        <button onClick={handleDeletePermanently}>No, delete permanently</button>
-                        <button className="xmark-btn" onClick={handleCloseModal}><FontAwesomeIcon icon={faXmark} /></button>
+                        <button onClick={handleDeletePermanently}>
+                            No, delete permanently
+                        </button>
+                        <button
+                            className="xmark-btn"
+                            onClick={handleCloseModal}
+                        >
+                            <FontAwesomeIcon icon={faXmark} />
+                        </button>
                     </div>
                 </div>
             )}
-
         </div>
     );
 }
 
 export default NotesComponent;
-
