@@ -1,13 +1,19 @@
 import { useState, useEffect, useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashRestore, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/Auth.context.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faTrashCanArrowUp,
+    faTrashCan,
+    faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TrashComponent() {
     const { userId } = useContext(AuthContext);
     const [trashedNotes, setTrashedNotes] = useState([]);
     const [noteToRestore, setNoteToRestore] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [noteToDelete, setNoteToDelete] = useState(null);
+    const [isModalToRestoreOpen, setIsModalToRestoreOpen] = useState(false);
+    const [isModalToDeleteOpen, setIsModalToDeleteOpen] = useState(false);
 
     useEffect(() => {
         if (userId) {
@@ -20,11 +26,11 @@ function TrashComponent() {
         } else {
             console.error("User ID not found");
         }
-    }, [userId, trashedNotes]);
+    }, [trashedNotes]);
 
     const handleRestoreClick = (id) => {
         setNoteToRestore(id);
-        setIsModalOpen(true);
+        setIsModalToRestoreOpen(true);
     };
 
     const handleRestoreNote = async () => {
@@ -45,12 +51,41 @@ function TrashComponent() {
         } catch (error) {
             console.error("Error restoring note:", error);
         } finally {
-            setIsModalOpen(false);
+            setIsModalToRestoreOpen(false);
         }
     };
 
     const handleCloseModal = () => {
-        setIsModalOpen(false);
+        setIsModalToRestoreOpen(false);
+        setIsModalToDeleteOpen(false);
+    };
+
+    const handleDeleteClick = (id) => {
+        setNoteToDelete(id);
+        setIsModalToDeleteOpen(true);
+    };
+
+    const handleDeletePermanently = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/notes/${noteToDelete}`,
+                {
+                    method: "DELETE",
+                },
+            );
+
+            if (response.ok) {
+                setTrashedNotes(
+                    trashedNotes.filter((note) => note._id !== noteToDelete),
+                );
+            } else {
+                console.error("Failed to delete note");
+            }
+        } catch (error) {
+            console.error("Error deleting note:", error);
+        } finally {
+            setIsModalToDeleteOpen(false);
+        }
     };
 
     return (
@@ -68,7 +103,7 @@ function TrashComponent() {
                             </div>
                             <div className="note-menu">
                                 <small>
-                                    Moved to trash on{" "}
+                                    deleted{" "}
                                     {new Date(
                                         note.movedToTrashAt,
                                     ).toLocaleDateString("en-UK")}
@@ -80,8 +115,15 @@ function TrashComponent() {
                                         }
                                     >
                                         <FontAwesomeIcon
-                                            icon={faTrashRestore}
+                                            icon={faTrashCanArrowUp}
                                         />
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            handleDeleteClick(note._id)
+                                        }
+                                    >
+                                        <FontAwesomeIcon icon={faTrashCan} />
                                     </button>
                                 </div>
                             </div>
@@ -90,12 +132,29 @@ function TrashComponent() {
                 </ul>
             )}
 
-            {isModalOpen && (
+            {isModalToRestoreOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h2>Restore Note?</h2>
                         <button onClick={handleRestoreNote}>
                             Yes, restore
+                        </button>
+                        <button
+                            className="xmark-btn"
+                            onClick={handleCloseModal}
+                        >
+                            <FontAwesomeIcon icon={faXmark} />
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {isModalToDeleteOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Delete Note permanently?</h2>
+                        <button onClick={handleDeletePermanently}>
+                            Yes, delete
                         </button>
                         <button
                             className="xmark-btn"
