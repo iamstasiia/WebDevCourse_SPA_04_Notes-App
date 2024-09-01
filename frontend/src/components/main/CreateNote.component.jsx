@@ -1,23 +1,23 @@
 import { useState, useContext } from "react";
-import { UserContext } from "../../contexts/User.context";
+import { AuthContext } from "../../contexts/Auth.context.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function CreateNoteComponent() {
-    const { userId } = useContext(UserContext);
+    const { userId } = useContext(AuthContext);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [newNoteFormOpen, setNewNoteFormOpen] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const response = await fetch("http://localhost:3000/notes", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId, title, content }),
         });
         const data = await response.json();
-        console.log(data);
 
         setTitle("");
         setContent("");
@@ -55,7 +55,8 @@ function CreateNoteComponent() {
                 </div>
             )}
 
-            <button className="plus-btn"
+            <button
+                className="plus-btn"
                 onClick={() => {
                     setNewNoteFormOpen(true);
                 }}
